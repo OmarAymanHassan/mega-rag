@@ -20,3 +20,10 @@ uv add -r requirements.txt
 ```
 
 2. Activate the `.venv`
+
+
+## Setup the Environment
+```bash
+cp .env.example .env`
+```
+- Set your environemntal variables inside `.env` like `GEMINI_API_KEY`
