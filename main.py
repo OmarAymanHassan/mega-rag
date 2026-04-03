@@ -1,17 +1,13 @@
 from fastapi import FastAPI
+from dotenv import load_dotenv
+load_dotenv() # we pass it as i, since the default value is `.env` if it has different name we pass it load_dotenv(".new_name")
 
+from routes import base
 
 app = FastAPI()
 
-@app.get("/")
-def hello_world():
-    return "Welcome to FastAPI - New version"
+app.include_router(base.base_router)
 
-@app.get("/welcome")
-def welcome():
-    return {
-        "message" : "Welcome to our website"
-    }
 
 
 # we will run this on port 5000 and make anyone outside the network can access it !
