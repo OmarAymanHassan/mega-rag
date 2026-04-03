@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 load_dotenv() # we pass it as i, since the default value is `.env` if it has different name we pass it load_dotenv(".new_name")
 
-from routes import base
+from src.routes import base
 
 app = FastAPI()
 
