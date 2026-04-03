@@ -27,3 +27,4 @@ uv add -r requirements.txt
 cp .env.example .env`
 ```
 - Set your environemntal variables inside `.env` like `GEMINI_API_KEY`
+
