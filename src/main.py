@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
-load_dotenv() # we pass it as i, since the default value is `.env` if it has different name we pass it load_dotenv(".new_name")
+#load_dotenv() # we pass it as i, since the default value is `.env` if it has different name we pass it load_dotenv(".new_name")
 
-from src.routes import base
+from routes import base,data
 
 app = FastAPI()
 
 app.include_router(base.base_router)
+app.include_router(data.data_router)
 
 
 
