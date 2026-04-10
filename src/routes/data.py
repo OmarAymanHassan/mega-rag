@@ -1,12 +1,12 @@
 from fastapi import FastAPI, APIRouter,Depends,UploadFile, status
 from fastapi.responses import JSONResponse
 from utils.config import get_settings,Settings
-from controllers import DataController, ProjectController
+from controllers import DataController, ProjectController,ProcessController
 from models import ResponseSignal
+from .schemes.data import ProcessRequest
 import aiofiles
 import logging
 import os
-
 
 #logger = logging.getLogger(__name__)
 logger = logging.getLogger("uvicorn-error")
@@ -65,3 +65,54 @@ async def upload_data(project_id,
             "file_id": file_id # return the unique filename to be stored in db
         }
     )
+
+
+
+
+# ---------------------------------- Request Processing Endpoint ---------------------------------- #
+
+@data_router.post("/process/{project_id}")
+async def process_endpoint(project_id, process_request:ProcessRequest):
+
+    file_id = process_request.file_id
+    chunk_size = process_request.chunk_size
+    overlap_size = process_request.overlap_size
+
+    # init our process controller to use all its functionalities
+    process_controller = ProcessController(project_id)
+
+    # get the content of the file
+
+    file_content = process_controller.get_file_content(file_id)
+    file_chunks = process_controller.process_file_content(file_content=file_content, chunk_size=chunk_size, overlap_size=overlap_size)
+
+    serialized_chunks = [
+        {
+            "page_content": chunk.page_content,
+            "metadata": chunk.metadata
+        }
+        for chunk in file_chunks
+    ]
+
+    if not serialized_chunks or len(serialized_chunks)==0:
+        
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={
+
+                "signal":ResponseSignal.PROCESSING_FAILED.value
+
+            }
+        )
+
+
+    return file_chunks
+'''
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={
+            "signal":ResponseSignal.PROCESSING_SUCESS.value,
+            "chunks":serialized_chunks
+        }
+    )
+'''
