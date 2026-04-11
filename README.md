@@ -11,12 +11,12 @@ This project for implementing End to End Rag system from scratch
 1. Using `uv`
 
 ```bash
-uv sync
+$ uv sync
 ```
 
 or Using requirements.txt
 ```bash
-uv add -r requirements.txt
+$ uv add -r requirements.txt
 ```
 
 2. Activate the `.venv`
@@ -24,13 +24,21 @@ uv add -r requirements.txt
 
 ## Setup the Environment
 ```bash
-cp .env.example .env`
+$ cp .env.example .env`
 ```
 - Set your environemntal variables inside `.env` like `GEMINI_API_KEY`
 
 
-3. Run the FastAPI Server
+
+3. Run the Docker Compose File
+```bash
+$ cd docker 
+$ cp .env.example .env
+```
+- Update .env with your credentials
+
+4. Run the FastAPI Server
 
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 5000
+$ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 ```
