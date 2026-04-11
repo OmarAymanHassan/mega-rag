@@ -31,6 +31,10 @@ class ProcessController(BaseController):
         file_path = os.path.join(self.project_path, file_id) #src/assets/file/{project_id}/file_name.pdf or .txt
 
 
+        if not os.path.exists(file_path):
+            return None
+
+
         if file_extension == ProcessingEnum.TXT.value:
             return TextLoader(file_path, encoding="utf-8")
 
@@ -47,6 +51,8 @@ class ProcessController(BaseController):
         loader = self.get_file_loader(file_id) # loader contains two main parts: page_content and metadata
         # page_content which contains the file text
         # metadata contains information about the file, like how many pages this file contains, extension, source ..etc.
+        if not loader:
+            return None
         return loader.load()
 
 

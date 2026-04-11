@@ -12,4 +12,6 @@ class ResponseSignal(Enum):
     FILE_NOT_FOUND = "No file was uploaded"
     PROCESSING_FAILED = "processing failed."
     PROCESSING_SUCESS = "processing done sucessfully"
+    ASSETS_NOT_fOUND = "no_files_found."
+    ASSETS_FILE_ID_ERROR = "No files found with this ID."
 

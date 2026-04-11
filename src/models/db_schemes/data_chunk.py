@@ -10,6 +10,7 @@ class DataChunk(BaseModel):
     chunk_metadata:dict
     chunk_order:int
     chunk_project_id :ObjectId
+    chunk_asset_id: ObjectId
 
 
     model_config= {
